@@ -87,7 +87,7 @@ export default function ProductDetail() {
     <div className="container mx-auto px-4 py-6 max-w-2xl">
       <button
         onClick={() => navigate('/')}
-        className="mb-4 flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+        className="mb-4 flex items-center text-blue-400 hover:text-blue-300 transition-colors"
       >
         <span className="mr-2">←</span>
         Вернуться в каталог
