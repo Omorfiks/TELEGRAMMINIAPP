@@ -34,7 +34,7 @@ export default function ProductList() {
 
   return (
     <div className="container mx-auto px-4 py-6">
-      <h1 className="text-2xl font-bold mb-6">Каталог товаров</h1>
+      <h1 className="text-2xl font-bold mb-6 text-gray-100">Каталог товаров</h1>
       <div className="grid grid-cols-2 gap-4">
         {products.map((product) => {
           const hasStock = product.sizes && Object.values(product.sizes).some(qty => qty > 0)
@@ -43,7 +43,7 @@ export default function ProductList() {
             <div
               key={product.id}
               onClick={() => navigate(`/product/${product.id}`)}
-              className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+              className="bg-gray-800 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow border border-gray-700"
             >
               {product.image_url && (
                 <img
@@ -53,10 +53,10 @@ export default function ProductList() {
                 />
               )}
               <div className="p-4">
-                <h3 className="font-semibold text-sm mb-2 line-clamp-2">{product.name}</h3>
-                <p className="text-lg font-bold text-blue-600">{product.price} ₽</p>
+                <h3 className="font-semibold text-sm mb-2 line-clamp-2 text-gray-100">{product.name}</h3>
+                <p className="text-lg font-bold text-blue-400">{product.price} ₽</p>
                 {!hasStock && (
-                  <p className="text-red-500 text-xs mt-2">Нет в наличии</p>
+                  <p className="text-red-400 text-xs mt-2">Нет в наличии</p>
                 )}
               </div>
             </div>
@@ -65,7 +65,7 @@ export default function ProductList() {
       </div>
       {products.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-500">Товары пока не добавлены</p>
+          <p className="text-gray-400">Товары пока не добавлены</p>
         </div>
       )}
     </div>

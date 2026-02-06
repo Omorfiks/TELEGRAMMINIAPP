@@ -8,14 +8,18 @@ function App() {
   useEffect(() => {
     // Инициализация Telegram Web App
     if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.ready()
-      window.Telegram.WebApp.expand()
+      const tg = window.Telegram.WebApp
+      tg.ready()
+      tg.expand()
+      // Устанавливаем тёмную тему по умолчанию
+      tg.setHeaderColor('#212121')
+      tg.setBackgroundColor('#121212')
     }
   }, [])
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-900 text-gray-100">
         <Routes>
           <Route path="/" element={<ProductList />} />
           <Route path="/product/:id" element={<ProductDetail />} />

@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
 export default function ProductDetail() {
   const { id } = useParams()
+  const navigate = useNavigate()
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -64,16 +65,16 @@ export default function ProductDetail() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-lg">Загрузка...</div>
+      <div className="flex justify-center items-center min-h-screen bg-gray-900">
+        <div className="text-lg text-gray-100">Загрузка...</div>
       </div>
     )
   }
 
   if (!product) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-lg text-red-500">Товар не найден</div>
+      <div className="flex justify-center items-center min-h-screen bg-gray-900">
+        <div className="text-lg text-red-400">Товар не найден</div>
       </div>
     )
   }
@@ -84,6 +85,14 @@ export default function ProductDetail() {
 
   return (
     <div className="container mx-auto px-4 py-6 max-w-2xl">
+      <button
+        onClick={() => navigate('/')}
+        className="mb-4 flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+      >
+        <span className="mr-2">←</span>
+        Вернуться в каталог
+      </button>
+      
       {product.image_url && (
         <img
           src={`${API_URL}${product.image_url}`}
@@ -92,18 +101,18 @@ export default function ProductDetail() {
         />
       )}
       
-      <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-      <p className="text-3xl font-bold text-blue-600 mb-6">{product.price} ₽</p>
+      <h1 className="text-3xl font-bold mb-4 text-gray-100">{product.name}</h1>
+      <p className="text-3xl font-bold text-blue-400 mb-6">{product.price} ₽</p>
       
       {product.description && (
         <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Описание</h2>
-          <p className="text-gray-700">{product.description}</p>
+          <h2 className="text-xl font-semibold mb-2 text-gray-100">Описание</h2>
+          <p className="text-gray-300">{product.description}</p>
         </div>
       )}
 
       <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-3">Размеры и остатки</h2>
+        <h2 className="text-xl font-semibold mb-3 text-gray-100">Размеры и остатки</h2>
         {Object.keys(sizes).length > 0 ? (
           <div className="flex flex-wrap gap-3">
             {Object.entries(sizes).map(([size, quantity]) => (
@@ -111,8 +120,8 @@ export default function ProductDetail() {
                 key={size}
                 className={`px-4 py-2 rounded-lg border-2 ${
                   quantity > 0
-                    ? 'border-green-500 bg-green-50 text-green-700'
-                    : 'border-gray-300 bg-gray-100 text-gray-500'
+                    ? 'border-green-500 bg-green-900 text-green-200'
+                    : 'border-gray-600 bg-gray-800 text-gray-400'
                 }`}
               >
                 <span className="font-semibold">{size}:</span> {quantity} шт.
@@ -120,13 +129,13 @@ export default function ProductDetail() {
             ))}
           </div>
         ) : (
-          <p className="text-gray-500">Размеры не указаны</p>
+          <p className="text-gray-400">Размеры не указаны</p>
         )}
       </div>
 
       {!hasStock && (
-        <div className="bg-red-50 border-2 border-red-500 rounded-lg p-4 mb-6">
-          <p className="text-red-700 font-semibold text-center">Нет в наличии</p>
+        <div className="bg-red-900 border-2 border-red-500 rounded-lg p-4 mb-6">
+          <p className="text-red-200 font-semibold text-center">Нет в наличии</p>
         </div>
       )}
 
